@@ -1,0 +1,32 @@
+{
+  "matchesWithinPlainText": ${matchesWithinPlainText},
+  "matchesWithinGwt": ${matchesWithinGwt},
+  "isUserDefined": ${isUserDefined},
+  "rule": "${replace(rule, "\"", "\\\"")}",
+  "matchesWithinCookie": ${isUserDefined},
+  "keywords": [
+        %{ for i in keywords ~}
+                        {
+                        "value": "${i.value}",
+                        "matchCase": ${i.matchCase},
+                        "comparison": "${i.comparison}",
+                        "context": "${i.context}"
+                        }
+        %{ endfor ~}
+  ],
+  "matchesWithinParameter": ${matchesWithinParameter},
+  "matchesWithinXml": ${matchesWithinXml},
+  "tag": "${tag}",
+  "matchesWithinHeader": ${matchesWithinHeader},
+  "signatureId": ${signatureId},
+  "matchesWithinJson": ${matchesWithinJson},
+  "name": "${name}",
+  "description": "${description}",
+  "hasCve": ${hasCve},
+  "matchesWithinRequest": ${matchesWithinRequest},
+  "matchesWithinResponse": ${matchesWithinResponse},
+  "matchesWithinUri": ${matchesWithinUri},
+  "accuracy": "${accuracy}",
+  "risk": "${risk}",
+  "signatureType": "${signatureType}"
+}

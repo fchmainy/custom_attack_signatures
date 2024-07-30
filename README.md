@@ -3,7 +3,7 @@
 
 
 # How to use it?
-You can use it as a module or as is.
+You can use plan & apply it or reference to it as a terraform module.
 
 ## Contents
 
@@ -37,22 +37,22 @@ A big-ip with Token based authentication.
 ## To use it as a terraform blueprint
 
   1. Clone the repo:
-  ```
+  ```bash
       git clone https://github.com/fchmainy/custom_attack_signatures.git
       cd custom_attack_signatures/
   ```     
   3. set the sensitive env variables
-  ```
+  ```bash
       export TF_VAR_USERNAME="admin"
       export TF_VAR_PASSWORD='DefineYourPassword123'
   ```
   3. Initialize your terraform.auto.tfvars 
-  ```
+  ```bash
       cp terraform.auto.tfvars.example terraform.auto.tfvars
       vi terraform.auto.tfvars
   ```
   4. Set your input variables
-  ```
+  ```terraform
       name          = "Blocking-uuid-uuid=123456"
       signatureId   = 300000001
       description   = "This is a demo Custom Attack Signature"
@@ -74,28 +74,76 @@ A big-ip with Token based authentication.
       matchesWithinParameter = true
       matchesWithinRequest   = true
   ```
-  5. Initialize the directory
-  ```
+  5. Initialize the terraform working directory, plan then apply
+  ```bash
       terraform init
-  ```
-  5. Test the plan and validate errors
-  ```
       terraform plan
-  ```
-  6. Finally, apply and deploy
-  ```
       terraform apply
   ```
-  7. When done with everything, don't forget to clean up!
-  ```
-      terraform destroy
-  ```
 
-<!-- markdownlint-disable no-inline-html -->
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
+## Use it as a terraform module
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.0 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.59.0 |
+```terraform
+module "attack_sig_uuid1234" {
+  source = "github.com/fchmainy/custom_attack_signatures?ref=v1.0.6"
+  USERNAME      = var.username
+  PASSWORD      = var.password
+  signatureId   = 300000002
+  description   = "This is a demo Custom Attack Signature"
+  tag           = "demo"
+  hasCve        = false
+  revision      = "1"
+  accuracy      = "high"
+  risk          = "high"
+  signatureType = "request"
+  rule          = "content:\"uuid=1234\";"
+  keywords = [
+  {
+    value      = "uuid=1234"
+    matchCase  = true
+    comparison = "string-match"
+    context    = "request"
+  }
+  ]
+  matchesWithinParameter = true
+  matchesWithinRequest   = true
+  }
+```
+
+
+
+## Variables
+
+| Name | Description | Mandatory |Type | Default | Constraints |
+|------|-------------|-----------|-----|---------|-------------|
+| bigip | Management *IPAddress* or *IPAddress:Port* of the target BIG-IP | true | string | "" |  |
+| USERNAME | Username to authenticate to BIG-IP. Keep it secret! | true | string | "" |  |
+| PASSWORD | Password to authenticate to BIG-IP. Keep it secret! | true | string | "" |  |
+| name | Name of the Custom Attack Signature | true | string | "" |  |
+| signatureId | ID of the custom Attack Signature. If not provided it will be computed by the BIG-IP | false | number | "" |  |
+| description | Description of the custom Attack Signature. | false | string | "" |  |
+| tag | Description of the custom Attack Signature. | false | string | "" |  |
+| hasCve | Description of the custom Attack Signature. | false | string | "" |  |
+| revision | Description of the custom Attack Signature. | false | string | "" |  |
+| accuracy | Accuracy of the custom Attack Signature. | false | string | high | **low**, **medium** or **high** |
+| risk | Risk of the custom Attack Signature. | false | string | high | **low**, **medium** or **high** |
+| signatureType | Signature Type. | false | string | "" | **request** or **response** |
+| isUserDefined | Custom Attack Signatures are often user defined. | false | bool | true |  |
+| rule | Description of the custom Attack Signature. | false | string | "" |  |
+| keywords | Description of the custom Attack Signature. | false | string | "" |  |
+| ^ | Value: rule match. | false | string | "" |  |
+| ^ | matchCase: the rule is Case sensitive. | false | bool | true |  |
+| ^ | comparison: type of match of the rule. | false | string | string-match | **regexp-does-not-match**, **string-match**, **regexp-match**, **string-does-not-match** |
+| ^ | Context of the custom Attack Signature. | false | string | "" | **request**, **response**, **gwt**, **parameter-cookie-contentprofile**, **parameter-cookie**, **json**, **uri-without-query-string**, **xml**, **uri-with-query-string**, **header** |
+| matchesWithinCookie | Could it mach within a Cookie? | false | bool | false |  |
+| matchesWithinParameter | Could it mach within a Cookie? | false | bool | false |  |
+| matchesWithinHeader | Could it mach within a Cookie? | false | bool | false |  |
+| matchesWithinUri | Could it mach within a Cookie? | false | bool | false |  |
+| matchesWithinXml | Could it mach within a Cookie? | false | bool | false |  |
+| matchesWithinJson | Could it mach within a Cookie? | false | bool | false |  |
+| matchesWithinPlainText | Could it mach within Plain Text | false | bool | false |  |
+| matchesWithinGwt | Could it mach within Gwt? | false | bool | false |  |
+| matchesWithinRequest | Could it mach within Request? | false | bool | true |  |
+| matchesWithinResponse | Could it mach within Response? | false | bool | false |  |
+
+

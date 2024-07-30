@@ -1,4 +1,9 @@
-variable "attack-types" {
+variable "custom_attack_type" {
+  type = string
+}
+
+
+variable "available_attack_types" {
   type = map(string)
   default = {
 

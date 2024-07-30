@@ -4,6 +4,9 @@
   "isUserDefined": ${isUserDefined},
   "rule": "${replace(rule, "\"", "\\\"")}",
   "matchesWithinCookie": ${isUserDefined},
+  "attackTypeReference": {
+    "link": "https://localhost/mgmt/tm/asm/attack-types/${attack_type}?ver=16.1.0"
+  },
   "keywords": [
         %{ for i in keywords ~}
                         {

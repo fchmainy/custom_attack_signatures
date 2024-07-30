@@ -85,7 +85,7 @@ A big-ip with Token based authentication.
 
 ```terraform
 module "attack_sig_uuid1234" {
-  source = "github.com/fchmainy/custom_attack_signatures?ref=v1.0.6"
+  source = "github.com/fchmainy/custom_attack_signatures?ref=v0.0.1"
   USERNAME      = var.username
   PASSWORD      = var.password
   signatureId   = 300000002

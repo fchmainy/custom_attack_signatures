@@ -1,20 +1,30 @@
-name          = "Blocking-uuid-uuid=123456"
-signatureId   = 300000001
-description   = "This is a demo Custom Attack Signature"
-tag           = "demo"
-hasCve        = false
-revision      = "1"
-accuracy      = "high"
-risk          = "high"
-signatureType = "request"
-rule          = "content:\"uuid=543210\";"
+name               = "Blocking-uuid-uuid=246"
+signatureId        = 300000002
+description        = ""
+tag                = "demo"
+custom_attack_type = "Injection Attempt"
+hasCve             = false
+revision           = "1"
+accuracy           = "high"
+risk               = "low"
+signatureType      = "request"
+isUserDefined      = true
+rule               = "content:\"uuid=246\";"
 keywords = [
   {
-    value      = "uuid=543210"
+    value      = "uuid=246"
     matchCase  = true
     comparison = "string-match"
     context    = "request"
   }
 ]
+matchesWithinCookie    = false
 matchesWithinParameter = true
+matchesWithinHeader    = false
+matchesWithinUri       = true
+matchesWithinXml       = false
+matchesWithinJson      = false
+matchesWithinPlainText = false
+matchesWithinGwt       = false
 matchesWithinRequest   = true
+matchesWithinResponse  = false

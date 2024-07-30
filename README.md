@@ -43,6 +43,7 @@ A big-ip with Token based authentication.
   ```     
   3. set the sensitive env variables
   ```bash
+      export TF_VAR_bigip="10.1.1.9"
       export TF_VAR_USERNAME="admin"
       export TF_VAR_PASSWORD='DefineYourPassword123'
   ```

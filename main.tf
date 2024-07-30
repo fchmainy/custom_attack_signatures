@@ -7,6 +7,7 @@ locals {
     signatureId            = var.signatureId
     description            = var.description
     tag                    = var.tag
+    attack_type            = var.available_attack_types["${var.attack_type}"]
     hasCve                 = var.hasCve
     revision               = var.revision
     accuracy               = var.accuracy
